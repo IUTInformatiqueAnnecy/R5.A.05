@@ -1,5 +1,5 @@
 from random import randint
-from Engine.action import *
+from action import *
 
 class CharacterProxy:
     def __init__(self, cid :str, teamid :str, life :int, strength :int, armor :int, speed :int):

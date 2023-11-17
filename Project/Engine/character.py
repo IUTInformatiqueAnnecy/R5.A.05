@@ -61,8 +61,15 @@ class CharacterProxy:
         self._speed = value
 
     def setAction(self, value):
-        self._action = value
-    
+        if isinstance(value, str):
+            try:
+                self._action = ACTION[value]
+            except:
+                print(f"Action '{value}' not recognized, set to None by Default")
+                self._action = str(None)
+        elif isinstance(value, ACTION):
+            self._action = str(value.name)
+
     def setTarget(self, value):
         self._target = value
 
@@ -73,6 +80,7 @@ class CharacterProxy:
         s += "strength : " + str(self._strength) + "\n"
         s += "armor : " + str(self._armor) + "\n"
         s += "speed : " + str(self._speed) + "\n"
+        s += "action : " + str(self._action) + "\n"
         s += "------------\n"
         return s
 
@@ -84,7 +92,7 @@ class CharacterProxy:
         cDict["strength"] = self._strength
         cDict["armor"] = self._armor
         cDict["speed"] = self._speed
-        cDict["action"] = actionToStr(self._action)
+        cDict["action"] = str(self._action).split(".")[len(str(self._action).split('.')) - 1]
         cDict["target"] = str(self._target)
         cDict["dead"] = self._dead
         return cDict
